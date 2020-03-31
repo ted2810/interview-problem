@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - front-end
+      - back-end
+  front-end:
+    build: ./front-end
+    links:
+      - back-end
+  back-end:
+    build: ./back-end
+    environment:
+      - LUCID_AUTH_KEY
+    links:
+      - redis 
+  redis:
+    image: redis
